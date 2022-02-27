@@ -1,16 +1,19 @@
 import pygame
-from pygame.locals import *
-from sys import exit
-from config import *
-from ball import *
-from player import *
-from game import *
+import game
+import config
+
 
 pygame.init()
+game = game.Game()
+clock = pygame.time.Clock()
 
+while config.game_loop:
+    game.main_screen()
+    clock.tick(config.Constants.FPS)
 
+'''
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-pygame.display.set_caption("MyPong - PyGame Edition - 2021.01.30")
+pygame.display.set_caption("Pong War - PyGame Edition - 2021.01.30")
 
 # sound effects
 bounce_sound_effect = pygame.mixer.Sound('sounds/bounce.wav')
@@ -67,7 +70,7 @@ def draw_objects(screen):
 def collision_ball_wall():
     global ball_dy
 
-    if ball_y > 700:
+    if ball_y > SCREEN_HEIGHT:
         ball_dy *= -1
         bounce_sound_effect.play()
     elif ball_y <= 0:
@@ -137,3 +140,4 @@ while game_loop:
     game_clock.tick(FPS)
 
 pygame.quit()
+'''
