@@ -12,6 +12,9 @@ pygame.display.set_icon(pygame.image.load('img/ball.png'))
 # background
 background = Background(0)
 
+# menu text image
+menu_text = pygame.image.load('img/menu_text.png').convert_alpha()
+
 # Players coordinates
 player_1 = Player(30, 300, 'player_1')
 player_2 = Player(820, 300, 'player_2')
@@ -25,11 +28,24 @@ def move_players():
     player_1.move()
     player_2.move()
 
+
+def background_move():
+    background.move()
+
+    # background stars movement repeat
+    if background.stars_1_position_x >= Constants.SCREEN_WIDTH:
+        background.stars_1_position_x = 0
+    if background.stars_2_position_x >= Constants.SCREEN_WIDTH:
+        background.stars_2_position_x = 0
+
+    background.render(screen)
+
 class Game():
     def __init__(self):
-        self.current_screen = 'main_screen'
+        self.current_screen = 'menu'
 
-    def main_screen(self):
+
+    def menu(self):
         # Players input
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -39,7 +55,11 @@ class Game():
                 if event.key == pygame.K_SPACE:
                     self.current_screen = 'main_screen'
 
-        screen.blit(Background.background, Background.background_cord)
+        background_move()
+        screen.blit(menu_text, (0,0))
+
+        # update menu screen
+        pygame.display.flip()
     
     # Game logic
     def main_screen(self):
@@ -68,15 +88,9 @@ class Game():
                 elif event.key == pygame.K_DOWN:
                     config.player_2_moving_down = False
         
-        background.move()
+        background_move()
         move_players()
         ball.move()
-
-        # background stars movement repeat
-        if background.stars_1_position_x >= Constants.SCREEN_WIDTH:
-            background.stars_1_position_x = 0
-        if background.stars_2_position_x >= Constants.SCREEN_WIDTH:
-            background.stars_2_position_x = 0
 
         # player 1 collision with top wall
         if player_1.position_y <= 0:
@@ -111,7 +125,6 @@ class Game():
             config.ball_moving_left = True
 
         # Drawing objects
-        background.render(screen)
         player_1.render(screen)
         player_2.render(screen)
         ball.render(screen)

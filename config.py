@@ -9,8 +9,8 @@ class Constants:
     COLOR_BLACK = (0, 0, 0)
     COLOR_WHITE = (255, 255, 255)
 
-    BACKGROUND_STARS_1_SPEED = 2
-    BACKGROUND_STARS_2_SPEED = 3
+    BACKGROUND_STARS_1_SPEED = 1
+    BACKGROUND_STARS_2_SPEED = 2
 
     FPS = 60
     FONT = 'assets/PressStart2P.ttf'

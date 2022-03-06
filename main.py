@@ -8,5 +8,8 @@ game = game.Game()
 clock = pygame.time.Clock()
 
 while config.game_loop:
-    game.main_screen()
+    if game.current_screen == 'menu':
+        game.menu()
+    else:
+        game.main_screen()
     clock.tick(config.Constants.FPS)
