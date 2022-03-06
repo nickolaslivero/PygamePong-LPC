@@ -40,7 +40,6 @@ class Game():
                     self.current_screen = 'main_screen'
 
         screen.blit(Background.background, Background.background_cord)
-        pygame.display.flip()
     
     # Game logic
     def main_screen(self):
