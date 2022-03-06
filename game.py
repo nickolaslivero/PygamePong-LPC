@@ -15,6 +15,11 @@ background = Background(0)
 # menu text image
 menu_text = pygame.image.load('img/menu_text.png').convert_alpha()
 
+# Game tips
+tip_1_img = pygame.image.load('img/tip_screen_1.png').convert_alpha()
+tip_2_img = pygame.image.load('img/tip_screen_2.png').convert_alpha()
+actual_tip = 1
+
 # Players coordinates
 player_1 = Player(30, 300, 'player_1')
 player_2 = Player(820, 300, 'player_2')
@@ -53,11 +58,36 @@ class Game():
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
-                    self.current_screen = 'main_screen'
+                    self.current_screen = 'tips_screen'
 
         background_move()
         screen.blit(menu_text, (0,0))
 
+        # update menu screen
+        pygame.display.flip()
+    
+    def tips_screen(self):
+        global actual_tip, tip_1_img, tip_2_img
+
+        # Players input
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                exit()
+
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    actual_tip += 1
+        
+        background_move()
+
+        if actual_tip == 1:
+            screen.blit(tip_1_img, (0,0))
+        elif actual_tip == 2:
+            screen.blit(tip_2_img, (0,0))
+        else:
+            actual_tip = 1
+            self.current_screen = 'main_screen'
+        
         # update menu screen
         pygame.display.flip()
     
