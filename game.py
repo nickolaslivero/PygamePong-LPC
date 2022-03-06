@@ -2,6 +2,7 @@ from config import *
 from ball import *
 from player import *
 from background import *
+from game_hud import *
 from sys import exit
 
 # screen
@@ -19,6 +20,9 @@ menu_text = pygame.image.load('img/menu_text.png').convert_alpha()
 tip_1_img = pygame.image.load('img/tip_screen_1.png').convert_alpha()
 tip_2_img = pygame.image.load('img/tip_screen_2.png').convert_alpha()
 actual_tip = 1
+
+# HUD
+hud = Hud()
 
 # Players coordinates
 player_1 = Player(30, 300, 'player_1')
@@ -158,6 +162,7 @@ class Game():
         player_1.render(screen)
         player_2.render(screen)
         ball.render(screen)
+        hud.render(screen)
 
         # update game screen
         pygame.display.flip()

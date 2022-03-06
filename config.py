@@ -13,7 +13,7 @@ class Constants:
     BACKGROUND_STARS_2_SPEED = 2
 
     FPS = 60
-    FONT = 'assets/PressStart2P.ttf'
+    FONT = 'assets/Pixeltype.ttf'
 
 # Global Variables
 game_loop = True
@@ -26,7 +26,11 @@ ball_moving_down = False
 player_1_speed = 10
 player_1_moving_up = False
 player_1_moving_down = False
+player_1_score = 0
+player_1_status = 0
 
 player_2_speed = 10
 player_2_moving_up = False
 player_2_moving_down = False
+player_2_score = 0
+player_2_status = 0
