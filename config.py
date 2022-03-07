@@ -1,5 +1,10 @@
 import pygame
 
+pygame.mixer.init()
+
+background_music = pygame.mixer.music.load('BoxCat Games - Assignment.mp3')
+pygame.mixer.music.play(-1)
+
 # Constants
 class Constants:
     SCREEN_WIDTH = 900
@@ -14,6 +19,12 @@ class Constants:
 
     FPS = 60
     FONT = 'assets/Pixeltype.ttf'
+
+
+paddle_sound = pygame.mixer.Sound('paddle.wav')
+wall_sound = pygame.mixer.Sound('ball.wav')
+player_collided_sound = pygame.mixer.Sound('smw_coin.wav')
+
 
 # Global Variables
 game_loop = True

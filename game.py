@@ -129,34 +129,42 @@ class Game():
         # player 1 collision with top wall
         if player_1.position_y <= 0:
             player_1.position_y = 0
+            player_collided_sound.play()
         
         # player 1 collision with bottom wall
         if player_1.position_y >= Constants.SCREEN_HEIGHT - 150:
             player_1.position_y = Constants.SCREEN_HEIGHT - 150
+            player_collided_sound.play()
         
         # player 2 collision with top wall
         if player_2.position_y <= 0:
             player_2.position_y = 0
+            player_collided_sound.play()
         
         # player 2 collision with bottom wall
         if player_2.position_y >= Constants.SCREEN_HEIGHT - 150:
             player_2.position_y = Constants.SCREEN_HEIGHT - 150
+            player_collided_sound.play()
         
         # Ball collision with top wall
         if ball.position_y <= 0:
             config.ball_moving_down = True
+            wall_sound.play()
         
         # Ball collision with bottom wall
         if ball.position_y >= Constants.SCREEN_HEIGHT - 20:
             config.ball_moving_down = False
+            wall_sound.play()
         
         # Ball collision with left wall
         if ball.position_x <= 0:
             config.ball_moving_left = False
+            wall_sound.play()
         
         # Ball collision with right wall
         if ball.position_x >= Constants.SCREEN_WIDTH - 20:
             config.ball_moving_left = True
+            wall_sound.play()
 
         # Drawing objects
         player_1.render(screen)
