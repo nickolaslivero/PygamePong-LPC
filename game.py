@@ -22,6 +22,8 @@ tip_1_img = pygame.image.load('img/tip_screen_1.png').convert_alpha()
 tip_2_img = pygame.image.load('img/tip_screen_2.png').convert_alpha()
 actual_tip = 1
 
+# PAUSE
+pause = pygame.image.load('img/pause.png').convert_alpha()
 # HUD
 hud = Hud()
 
@@ -177,6 +179,14 @@ class Game:
                     config.player_2_moving_up = True
                 elif event.key == pygame.K_DOWN:
                     config.player_2_moving_down = True
+                elif event.key == pygame.K_p:
+                    if config.jogo != config.Constants.PAUSED:
+                        config.jogo = config.Constants.PAUSED
+                    else:
+                        config.jogo = config.Constants.ROLLING
+                        background_move()
+                elif event.key == pygame.K_e:
+                    exit()
 
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_w:
@@ -189,10 +199,12 @@ class Game:
                     config.player_2_moving_down = False
 
         background_move()
-        move_players()
-        ball.move()
-        collision_player_1_ball()
-        collision_player_2_ball()
+        if config.jogo != config.Constants.PAUSED:
+            move_players()
+            ball.move()
+            collision_player_1_ball()
+            collision_player_2_ball()
+
         # player 1 collision with top wall
         if player_1.position_y <= 0:
             player_1.position_y = 0
@@ -248,6 +260,8 @@ class Game:
         player_2.render(screen)
         ball.render(screen)
         hud.render(screen)
+        if config.jogo == config.Constants.PAUSED:
+            screen.blit(pause, (0,0))
 
         if skill_selector.active == True:
             skill_selector.render(screen, skill_selector)
