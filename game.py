@@ -206,7 +206,7 @@ class Game:
         player_2.render(screen)
         ball.render(screen)
         hud.render(screen)
-<<<<<<< HEAD
+        
         if config.jogo == config.Constants.PAUSED:
             screen.blit(pause, (0, 0))
 
@@ -216,10 +216,11 @@ class Game:
 
         
         
-=======
-        skill_selector.render(screen)
+
+        if config.jogo != config.Constants.PAUSED:
+            skill_selector.render(screen)
 
         # update game screen
         pygame.display.flip()
 
->>>>>>> 3824d628e0fcc982d4cf9ca944b9f7d30d0cfafa
+
