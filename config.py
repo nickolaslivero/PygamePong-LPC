@@ -2,7 +2,7 @@ import pygame
 
 pygame.mixer.init()
 
-background_music = pygame.mixer.music.load('BoxCat Games - Assignment.mp3')
+background_music = pygame.mixer.music.load('sounds/BoxCat Games - Assignment.mp3')
 pygame.mixer.music.play(-1)
 
 # Constants
@@ -21,9 +21,9 @@ class Constants:
     FONT = 'assets/Pixeltype.ttf'
 
 
-paddle_sound = pygame.mixer.Sound('paddle.wav')
-wall_sound = pygame.mixer.Sound('ball.wav')
-player_collided_sound = pygame.mixer.Sound('smw_coin.wav')
+paddle_sound = pygame.mixer.Sound('sounds/paddle.wav')
+wall_sound = pygame.mixer.Sound('sounds/ball.wav')
+player_collided_sound = pygame.mixer.Sound('sounds/smw_coin.wav')
 
 
 # Global Variables
