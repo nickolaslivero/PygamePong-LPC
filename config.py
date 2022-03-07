@@ -2,8 +2,9 @@ import pygame
 
 pygame.mixer.init()
 
-background_music = pygame.mixer.music.load('sounds/BoxCat Games - Assignment.mp3')
+pygame.mixer.music.load('sounds/BoxCat Games - Assignment.mp3')
 pygame.mixer.music.play(-1)
+
 
 # Constants
 class Constants:
@@ -23,12 +24,12 @@ class Constants:
     ROLLING = 0
     PAUSED = 1
 
-jogo = 0
+
+game_1 = 0
 
 paddle_sound = pygame.mixer.Sound('sounds/paddle.wav')
 wall_sound = pygame.mixer.Sound('sounds/ball.wav')
 player_collided_sound = pygame.mixer.Sound('sounds/smw_coin.wav')
-
 
 # Global Variables
 game_loop = True

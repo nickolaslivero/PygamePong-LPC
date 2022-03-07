@@ -1,10 +1,8 @@
-from config import *
-from ball import *
-# from player import *
+from sys import exit
 from background import *
+from ball import *
 from game_hud import *
 from skill_selector import *
-from sys import exit
 
 # screen
 screen = pygame.display.set_mode(Constants.SCREEN_SIZE)
@@ -80,7 +78,7 @@ def verify_skill():
 
     if config.player_1_score > 0:
         if config.player_1_score % 3 == 0:
-            if skill_selector.active == False:
+            if not skill_selector.active:
                 skill_selector.set_image(skill_selector)
 
             skill_selector.active = True
@@ -94,7 +92,7 @@ def verify_skill():
 
     if config.player_2_score > 0:
         if config.player_2_score % 3 == 0:
-            if skill_selector.active == False:
+            if not skill_selector.active:
                 skill_selector.set_image(skill_selector)
 
             skill_selector.active = True
@@ -107,12 +105,12 @@ def verify_skill():
             config.player_1_speed = 7
 
 
-def skill_freeze(player):
-    if player == 1:
+def skill_freeze(player_):
+    if player_ == 1:
         config.player_2_moving_up = True
         config.player_2_moving_down = True
 
-    if player == 2:
+    if player_ == 2:
         config.player_1_moving_up = True
         config.player_1_moving_down = True
 
@@ -180,10 +178,10 @@ class Game:
                 elif event.key == pygame.K_DOWN:
                     config.player_2_moving_down = True
                 elif event.key == pygame.K_p:
-                    if config.jogo != config.Constants.PAUSED:
-                        config.jogo = config.Constants.PAUSED
+                    if config.game_1 != config.Constants.PAUSED:
+                        config.game_1 = config.Constants.PAUSED
                     else:
-                        config.jogo = config.Constants.ROLLING
+                        config.game_1 = config.Constants.ROLLING
                         background_move()
                 elif event.key == pygame.K_e:
                     exit()
@@ -199,7 +197,7 @@ class Game:
                     config.player_2_moving_down = False
 
         background_move()
-        if config.jogo != config.Constants.PAUSED:
+        if config.game_1 != config.Constants.PAUSED:
             move_players()
             ball.move()
             collision_player_1_ball()
@@ -260,10 +258,10 @@ class Game:
         player_2.render(screen)
         ball.render(screen)
         hud.render(screen)
-        if config.jogo == config.Constants.PAUSED:
-            screen.blit(pause, (0,0))
+        if config.game_1 == config.Constants.PAUSED:
+            screen.blit(pause, (0, 0))
 
-        if skill_selector.active == True:
+        if skill_selector.active:
             skill_selector.render(screen, skill_selector)
 
         # update game screen
