@@ -22,9 +22,6 @@ tip_1_img = pygame.image.load('img/tip_screen_1.png').convert_alpha()
 tip_2_img = pygame.image.load('img/tip_screen_2.png').convert_alpha()
 actual_tip = 1
 
-# Pause
-pause = pygame.image.load('img/pause.png').convert_alpha()
-
 # HUD
 hud = Hud()
 
@@ -75,6 +72,49 @@ def collision_player_2_ball():
             player_collided_sound.play()
 
 
+def verify_skill():
+    global skill_selector
+    # skill_selector.active = True
+
+    if config.player_1_score > 0:
+        if config.player_1_score % 3 == 0:
+            if skill_selector.active == False:
+                skill_selector.set_image(skill_selector)
+
+            skill_selector.active = True
+            skill_selector.player = 1
+            if skill_selector.name == "slow":
+                config.player_2_speed = 2
+            if skill_selector.name == "freeze":
+                skill_freeze(1)
+        else:
+            config.player_2_speed = 7
+
+    if config.player_2_score > 0:
+        if config.player_2_score % 3 == 0:
+            if skill_selector.active == False:
+                skill_selector.set_image(skill_selector)
+
+            skill_selector.active = True
+            skill_selector.player = 2
+            if skill_selector.name == "slow":
+                config.player_1_speed = 2
+            if skill_selector.name == "freeze":
+                skill_freeze(2)
+        else:
+            config.player_1_speed = 7
+
+
+def skill_freeze(player):
+    if player == 1:
+        config.player_2_moving_up = True
+        config.player_2_moving_down = True
+
+    if player == 2:
+        config.player_1_moving_up = True
+        config.player_1_moving_down = True
+
+
 class Game:
     def __init__(self):
         self.current_screen = 'menu'
@@ -123,7 +163,6 @@ class Game:
     # Game logic
     @staticmethod
     def main_screen():
-        global pause
         # Players input
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -138,15 +177,6 @@ class Game:
                     config.player_2_moving_up = True
                 elif event.key == pygame.K_DOWN:
                     config.player_2_moving_down = True
-                elif event.key == pygame.K_p:
-                    if config.jogo != config.Constants.PAUSED:
-                        config.jogo = config.Constants.PAUSED
-                    else:
-                        config.jogo = config.Constants.ROLLING
-                        background_move()
-                elif event.key == pygame.K_e:
-                    exit()
-                    
 
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_w:
@@ -157,14 +187,12 @@ class Game:
                     config.player_2_moving_up = False
                 elif event.key == pygame.K_DOWN:
                     config.player_2_moving_down = False
-         
-        background_move()
-        if config.jogo != config.Constants.PAUSED:
-            move_players()
-            ball.move()
-            collision_player_1_ball()
-            collision_player_2_ball()
 
+        background_move()
+        move_players()
+        ball.move()
+        collision_player_1_ball()
+        collision_player_2_ball()
         # player 1 collision with top wall
         if player_1.position_y <= 0:
             player_1.position_y = 0
@@ -195,34 +223,34 @@ class Game:
         if ball.position_x <= 0:
             config.ball_moving_left = False
             config.player_2_score += 1
+
+            if skill_selector.player == 2:
+                if config.player_2_score % 3 != 0:
+                    skill_selector.player = 0
+                    skill_selector.active = False
+
             wall_sound.play()
 
         # Ball collision with right wall
         if ball.position_x >= Constants.SCREEN_WIDTH - 20:
             config.ball_moving_left = True
             config.player_1_score += 1
+
+            if skill_selector.player == 1:
+                if config.player_1_score % 3 != 0:
+                    skill_selector.player = 0
+                    skill_selector.active = False
             wall_sound.play()
 
+        verify_skill()
         # Drawing objects
         player_1.render(screen)
         player_2.render(screen)
         ball.render(screen)
         hud.render(screen)
-        
-        if config.jogo == config.Constants.PAUSED:
-            screen.blit(pause, (0, 0))
+
+        if skill_selector.active == True:
+            skill_selector.render(screen, skill_selector)
 
         # update game screen
         pygame.display.flip()
-        
-
-        
-        
-
-        if config.jogo != config.Constants.PAUSED:
-            skill_selector.render(screen)
-
-        # update game screen
-        pygame.display.flip()
-
-
