@@ -19,4 +19,5 @@ class Skill(pygame.sprite.Sprite):
         self.image = pygame.image.load('{}'.format(random.choice(vector)))
 
     def render(self, surface):
-        surface.blit(self.image, (self.position_x, self.position_y))
+        a = pygame.image.load('{}'.format(random.choice(vector)))
+        surface.blit(a, (self.position_x, self.position_y))
