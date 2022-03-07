@@ -24,13 +24,14 @@ actual_tip = 1
 # HUD
 hud = Hud()
 
-# Players coordinates
+# Player coordinates
 player_1 = Player(30, 300, 'player_1')
 player_2 = Player(820, 300, 'player_2')
 
 # ball
-ball = Ball(position_x = Constants.SCREEN_WIDTH/2, \
-            position_y = Constants.SCREEN_HEIGHT/2)
+ball = Ball(position_x=Constants.SCREEN_WIDTH / 2,
+            position_y=Constants.SCREEN_HEIGHT / 2)
+
 
 # Players movement
 def move_players():
@@ -49,22 +50,24 @@ def background_move():
 
     background.render(screen)
 
+
 def collision_player_1_ball():
     if ball.position_x < (player_1.position_x + player_1.width):
-        if ball.position_y > player_1.position_y and ball.position_y < (player_1.position_y + player_1.height):
+        if player_1.position_y < ball.position_y < (player_1.position_y + player_1.height):
             config.ball_moving_left = False
             player_collided_sound.play()
 
+
 def collision_player_2_ball():
     if ball.position_x + ball.width > player_2.position_x:
-        if ball.position_y > player_2.position_y and ball.position_y < (player_2.position_y + player_2.height):
+        if player_2.position_y < ball.position_y < (player_2.position_y + player_2.height):
             config.ball_moving_left = True
             player_collided_sound.play()
 
-class Game():
+
+class Game:
     def __init__(self):
         self.current_screen = 'menu'
-
 
     def menu(self):
         # Players input
@@ -77,11 +80,11 @@ class Game():
                     self.current_screen = 'tips_screen'
 
         background_move()
-        screen.blit(menu_text, (0,0))
+        screen.blit(menu_text, (0, 0))
 
         # update menu screen
         pygame.display.flip()
-    
+
     def tips_screen(self):
         global actual_tip, tip_1_img, tip_2_img
 
@@ -93,22 +96,23 @@ class Game():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
                     actual_tip += 1
-        
+
         background_move()
 
         if actual_tip == 1:
-            screen.blit(tip_1_img, (0,0))
+            screen.blit(tip_1_img, (0, 0))
         elif actual_tip == 2:
-            screen.blit(tip_2_img, (0,0))
+            screen.blit(tip_2_img, (0, 0))
         else:
             actual_tip = 1
             self.current_screen = 'main_screen'
-        
+
         # update menu screen
         pygame.display.flip()
-    
+
     # Game logic
-    def main_screen(self):
+    @staticmethod
+    def main_screen():
         # Players input
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -123,7 +127,7 @@ class Game():
                     config.player_2_moving_up = True
                 elif event.key == pygame.K_DOWN:
                     config.player_2_moving_down = True
-            
+
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_w:
                     config.player_1_moving_up = False
@@ -133,7 +137,7 @@ class Game():
                     config.player_2_moving_up = False
                 elif event.key == pygame.K_DOWN:
                     config.player_2_moving_down = False
-        
+
         background_move()
         move_players()
         ball.move()
@@ -142,35 +146,35 @@ class Game():
         # player 1 collision with top wall
         if player_1.position_y <= 0:
             player_1.position_y = 0
-        
+
         # player 1 collision with bottom wall
         if player_1.position_y >= Constants.SCREEN_HEIGHT - 150:
             player_1.position_y = Constants.SCREEN_HEIGHT - 150
-        
+
         # player 2 collision with top wall
         if player_2.position_y <= 0:
             player_2.position_y = 0
-        
+
         # player 2 collision with bottom wall
         if player_2.position_y >= Constants.SCREEN_HEIGHT - 150:
             player_2.position_y = Constants.SCREEN_HEIGHT - 150
-        
+
         # Ball collision with top wall
         if ball.position_y <= 0:
             config.ball_moving_down = True
             wall_sound.play()
-        
+
         # Ball collision with bottom wall
         if ball.position_y >= Constants.SCREEN_HEIGHT - 20:
             config.ball_moving_down = False
             wall_sound.play()
-        
+
         # Ball collision with left wall
         if ball.position_x <= 0:
             config.ball_moving_left = False
             config.player_2_score += 1
             wall_sound.play()
-        
+
         # Ball collision with right wall
         if ball.position_x >= Constants.SCREEN_WIDTH - 20:
             config.ball_moving_left = True
