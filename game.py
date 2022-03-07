@@ -1,8 +1,9 @@
 from config import *
 from ball import *
-from player import *
+# from player import *
 from background import *
 from game_hud import *
+from skill_selector import *
 from sys import exit
 
 # screen
@@ -34,6 +35,12 @@ player_2 = Player(820, 300, 'player_2')
 # ball
 ball = Ball(position_x=Constants.SCREEN_WIDTH / 2,
             position_y=Constants.SCREEN_HEIGHT / 2)
+
+# skill selector
+skill_selector = Skill()
+clock = pygame.time.Clock()
+current_time = 0
+button_press_time = 0
 
 
 # Players movement
@@ -199,6 +206,7 @@ class Game:
         player_2.render(screen)
         ball.render(screen)
         hud.render(screen)
+<<<<<<< HEAD
         if config.jogo == config.Constants.PAUSED:
             screen.blit(pause, (0, 0))
 
@@ -208,3 +216,10 @@ class Game:
 
         
         
+=======
+        skill_selector.render(screen)
+
+        # update game screen
+        pygame.display.flip()
+
+>>>>>>> 3824d628e0fcc982d4cf9ca944b9f7d30d0cfafa
