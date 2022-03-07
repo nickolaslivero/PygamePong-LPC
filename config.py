@@ -20,6 +20,10 @@ class Constants:
     FPS = 60
     FONT = 'assets/Pixeltype.ttf'
 
+    ROLLING = 0
+    PAUSED = 1
+
+jogo = 0
 
 paddle_sound = pygame.mixer.Sound('sounds/paddle.wav')
 wall_sound = pygame.mixer.Sound('sounds/ball.wav')
