@@ -49,6 +49,18 @@ def background_move():
 
     background.render(screen)
 
+def collision_player_1_ball():
+    if ball.position_x < (player_1.position_x + player_1.width):
+        if ball.position_y > player_1.position_y and ball.position_y < (player_1.position_y + player_1.height):
+            config.ball_moving_left = False
+            player_collided_sound.play()
+
+def collision_player_2_ball():
+    if ball.position_x + ball.width > player_2.position_x:
+        if ball.position_y > player_2.position_y and ball.position_y < (player_2.position_y + player_2.height):
+            config.ball_moving_left = True
+            player_collided_sound.play()
+
 class Game():
     def __init__(self):
         self.current_screen = 'menu'
@@ -125,26 +137,23 @@ class Game():
         background_move()
         move_players()
         ball.move()
-
+        collision_player_1_ball()
+        collision_player_2_ball()
         # player 1 collision with top wall
         if player_1.position_y <= 0:
             player_1.position_y = 0
-            player_collided_sound.play()
         
         # player 1 collision with bottom wall
         if player_1.position_y >= Constants.SCREEN_HEIGHT - 150:
             player_1.position_y = Constants.SCREEN_HEIGHT - 150
-            player_collided_sound.play()
         
         # player 2 collision with top wall
         if player_2.position_y <= 0:
             player_2.position_y = 0
-            player_collided_sound.play()
         
         # player 2 collision with bottom wall
         if player_2.position_y >= Constants.SCREEN_HEIGHT - 150:
             player_2.position_y = Constants.SCREEN_HEIGHT - 150
-            player_collided_sound.play()
         
         # Ball collision with top wall
         if ball.position_y <= 0:

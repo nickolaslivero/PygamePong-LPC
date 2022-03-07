@@ -15,6 +15,8 @@ class Player():
         self.name = player
         self.position_x = position_x
         self.position_y = position_y
+        self.width = 40
+        self.height= 120
 
         if player == 'player_1':
             self.speed = config.player_1_speed

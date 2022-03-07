@@ -1,6 +1,7 @@
 import pygame
 import config
 
+
 class Ball(pygame.sprite.Sprite):
     def __init__(self, position_x, position_y):
         pygame.sprite.Sprite.__init__(self)
@@ -9,6 +10,8 @@ class Ball(pygame.sprite.Sprite):
         self.speed_x = config.ball_speed_x
         self.speed_y = config.ball_speed_y
         self.image = pygame.image.load('img/ball.png')
+        self.width = 20
+        self.height = 20
     
     def move(self):
         if config.ball_moving_left:
