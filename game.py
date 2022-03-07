@@ -144,6 +144,8 @@ class Game:
                     else:
                         config.jogo = config.Constants.ROLLING
                         background_move()
+                elif event.key == pygame.K_e:
+                    exit()
                     
 
             if event.type == pygame.KEYUP:
