@@ -17,11 +17,11 @@ class Hud(pygame.sprite.Sprite):
         self.status_1 = config.player_1_status
         self.status_2 = config.player_2_status
         self.image = pygame.image.load('img/HUD.png')
-        self.score_text = game_font.render(f'{self.score_1}:{self.score_2}', False, (255, 255, 255))
     
     def update_data(self):
         '''aaaaaa'''
     
     def render(self, surface):
         surface.blit(self.image,(0,0))
-        surface.blit(self.score_text,(config.Constants.SCREEN_WIDTH/2,config.Constants.SCREEN_HEIGHT-35))
+        score_text = game_font.render(f'{config.player_1_score}:{config.player_2_score}', False, (255, 255, 255))
+        surface.blit(score_text,(config.Constants.SCREEN_WIDTH/2,config.Constants.SCREEN_HEIGHT-35))

@@ -168,11 +168,13 @@ class Game():
         # Ball collision with left wall
         if ball.position_x <= 0:
             config.ball_moving_left = False
+            config.player_2_score += 1
             wall_sound.play()
         
         # Ball collision with right wall
         if ball.position_x >= Constants.SCREEN_WIDTH - 20:
             config.ball_moving_left = True
+            config.player_1_score += 1
             wall_sound.play()
 
         # Drawing objects
